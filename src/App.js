@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import TweetForm from "./components/tweetForm/TweetForm";
+import TweetList from "./components/tweetList/TweetList";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [tweets, setTweets] = useState([]);
+
+    const addTweet = (text) => {
+        setTweets([...tweets, text]);
+    };
+
+    const deleteTweet = (index) => {
+        const updatedTweets = [...tweets];
+        updatedTweets.splice(index, 1);
+        setTweets(updatedTweets);
+    };
+
+    return (
+        <div className="App">
+            <h1>Міні-копія Twitter</h1>
+            <TweetForm onAdd={addTweet} />
+            <TweetList tweets={tweets} onDelete={deleteTweet} />
+        </div>
+    );
 }
 
 export default App;
